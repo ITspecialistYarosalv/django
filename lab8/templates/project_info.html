@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ project_name }}</title>
+    <style>
+        h2 { text-align: center; }
+        .group { font-style: italic; color: blue; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        table, th, td { border: 1px solid black; }
+        th { font-weight: bold; background-color: lightgray; }
+        td { text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>{{ project_name }}</h1>
+    <p>Студент: <strong>{{ student_name }}</strong>, Група: <span class="group">{{ group }}</span></p>
+
+    <h2>Клієнти</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Код клієнта</th>
+                <th>Тип клієнта</th>
+                <th>Адреса</th>
+                <th>Прізвище</th>
+                <th>Ім'я</th>
+                <th>По батькові</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+            <tr>
+                <td>{{ client.client_id }}</td>
+                <td>{{ client.client_type }}</td>
+                <td>{{ client.address }}</td>
+                <td>{{ client.last_name }}</td>
+                <td>{{ client.first_name }}</td>
+                <td>{{ client.middle_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Телефони</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Номер телефону</th>
+                <th>Клієнт</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for phone in phones %}
+            <tr>
+                <td>{{ phone.phone_number }}</td>
+                <td>{{  phone.client.first_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Розмови</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Код розмови</th>
+                <th>Дата розмови</th>
+                <th>Номер телефону</th>
+                <th>Кількість хвилин</th>
+                <th>Код тарифу</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for call in calls %}
+            <tr>
+                <td>{{ call.call_id }}</td>
+                <td>{{ call.call_date }}</td>
+                <td>{{ call.phone_number }}</td>
+                <td>{{ call.duration_minutes }}</td>
+                <td>{{ call.tariff.call_type }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Тарифи</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Код тарифу</th>
+                <th>Тип дзвінка</th>
+                <th>Вартість за хвилину</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tariff in tariffs %}
+            <tr>
+                <td>{{ tariff.tariff_id }}</td>
+                <td>{{ tariff.call_type }}</td>
+                <td>{{ tariff.cost_per_minute }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
